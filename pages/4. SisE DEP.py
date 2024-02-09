@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+#import matplotlib.pyplot as plt
+#import seaborn as sns
 import numpy as np
 
 '''
@@ -238,20 +238,20 @@ df_grafica_1['Porcentaje Aciertos Saberes y P. Científico'] = (df_calificado_an
 df_grafica_1['Porcentaje Aciertos Ética, Nat. y Sociedad'] = (df_calificado_analisis['Aciertos Ética, Nat. y Sociedad'] / 2) * 100
 
 # Graficar los porcentajes de aciertos
-fig, ax = plt.subplots(figsize=(10, 6))
-sns.barplot(x=['Lenguaje', 'Saberes y P. Científico', 'Ética, Nat. y Sociedad'],
-            y=[df_grafica_1['Porcentaje Aciertos Lenguaje'].mean(), 
-               df_grafica_1['Porcentaje Aciertos Saberes y P. Científico'].mean(), 
-               df_grafica_1['Porcentaje Aciertos Ética, Nat. y Sociedad'].mean()],
-            ax=ax)
-ax.set_title('Porcentaje de Aciertos por Campo Formativo')
-ax.set_xlabel('Campos Formativos')
-ax.set_ylabel('Porcentaje de Aciertos (%)')
+#fig, ax = plt.subplots(figsize=(10, 6))
+#sns.barplot(x=['Lenguaje', 'Saberes y P. Científico', 'Ética, Nat. y Sociedad'],
+           # y=[df_grafica_1['Porcentaje Aciertos Lenguaje'].mean(), 
+              # df_grafica_1['Porcentaje Aciertos Saberes y P. Científico'].mean(), 
+               #df_grafica_1['Porcentaje Aciertos Ética, Nat. y Sociedad'].mean()],
+           # ax=ax)
+#ax.set_title('Porcentaje de Aciertos por Campo Formativo')
+#ax.set_xlabel('Campos Formativos')
+#ax.set_ylabel('Porcentaje de Aciertos (%)')
 
 # Agregar etiquetas de datos a las barras
-for i in range(len(ax.patches)):
-    ax.text(ax.patches[i].get_x() + ax.patches[i].get_width()/2., ax.patches[i].get_height(),
-            f"{ax.patches[i].get_height():.2f}%", ha='center', va='bottom')
+#for i in range(len(ax.patches)):
+    #ax.text(ax.patches[i].get_x() + ax.patches[i].get_width()/2., ax.patches[i].get_height(),
+            #f"{ax.patches[i].get_height():.2f}%", ha='center', va='bottom')
 
 # Mostrar la gráfica en Streamlit
 #st.pyplot(fig)
@@ -260,12 +260,12 @@ for i in range(len(ax.patches)):
 tab4, tab5, tab6 = st.tabs(["Aciertos", "Errores", "No contestadas"])
 with tab4:
    st.header("Aciertos")
-   st.pyplot(fig)
+   #st.pyplot(fig)
 
 with tab5:
    st.header("Errores")
-   st.pyplot(fig)
+   #st.pyplot(fig)
 
 with tab6:
    st.header("No contestadas")
-   st.pyplot(fig)
+   #st.pyplot(fig)
