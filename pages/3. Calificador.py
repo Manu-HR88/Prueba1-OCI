@@ -139,9 +139,9 @@ if archivo_excel is not None:
             st.write(texto_publico_empate, unsafe_allow_html=True)
             for alumno in alumnos_max_aciertos_publico:
                 st.write(f"<div style='text-align: center; font-size: 20px;'>{alumno}</div>", unsafe_allow_html=True)
-                info_alumno_empate = df_calificado_publico[df_calificado_publico["Nombre del Alumno"] == alumno][cols_especificas].iloc[0]
-                for i in range(len(info_alumno_empate)):
-                    st.write(cols_especificas[i], ":", info_alumno_empate.iloc[i])
+                info_alumno_empate_publico = df_calificado_publico[df_calificado_publico["Nombre del Alumno"] == alumno][cols_especificas].iloc[0]
+                for i in range(len(info_alumno_empate_publico)):
+                    st.write(cols_especificas[i], ":", info_alumno_empate_publico.iloc[i])
         else:
             texto_publico = f"<div style='text-align: center; font-size: 20px;'>Participante con mayor número de aciertos de escuelas públicas: <br><span style='font-size: 30px; font-weight: bold;'>{alumnos_max_aciertos_publico[0]}</span> <br> con {max_aciertos_publico} aciertos.</div>"
             st.write(texto_publico, unsafe_allow_html=True)
@@ -186,9 +186,9 @@ if archivo_excel is not None:
             st.write(texto_privado_empate, unsafe_allow_html=True)
             for alumno in alumnos_max_aciertos_privado:
                 st.write(f"<div style='text-align: center; font-size: 20px;'>{alumno}</div>", unsafe_allow_html=True)
-                info_alumno_empate = df_calificado_privado[df_calificado_privado["Nombre del Alumno"] == alumno][cols_especificas].iloc[0]
-                for i in range(len(info_alumno_empate)):
-                    st.write(cols_especificas[i], ":", info_alumno_empate.iloc[i])
+                info_alumno_empate_privado = df_calificado_privado[df_calificado_privado["Nombre del Alumno"] == alumno][cols_especificas].iloc[0]
+                for i in range(len(info_alumno_empate_privado)):
+                    st.write(cols_especificas[i], ":", info_alumno_empate_privado.iloc[i])
         else:
             texto_privado = f"<div style='text-align: center; font-size: 20px;'>Participante con mayor número de aciertos de escuelas particulares: <br><span style='font-size: 30px; font-weight: bold;'>{alumnos_max_aciertos_publico[0]}</span> <br> con {max_aciertos_publico} aciertos.</div>"
             st.write(texto_privado, unsafe_allow_html=True)
