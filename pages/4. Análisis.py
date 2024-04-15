@@ -113,33 +113,26 @@ if not df_resultados_total.empty:
     # Aplicar los filtros al DataFrame
     if filtro_sostenimiento != "Todos":
         df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Sostenimiento'] == filtro_sostenimiento]
+        df_resultados_total = df_resultados_total[df_resultados_total['Sostenimiento'] == filtro_sostenimiento]
     if filtro_turno != "Todos":
         df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Turno'] == filtro_turno]
+        df_resultados_total = df_resultados_total[df_resultados_total['Turno'] == filtro_turno]
     if filtro_escuela != "Todos":
         df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Nombre de la Escuela'] == filtro_escuela]
+        df_resultados_total = df_resultados_total[df_resultados_total['Nombre de la Escuela'] == filtro_escuela]
     if filtro_docente != "Todos":
         df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Nombre del Docente'] == filtro_docente]
+        df_resultados_total = df_resultados_total[df_resultados_total['Nombre del Docente'] == filtro_docente]
     if filtro_grupo != "Todos":
         df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Grupo'] == filtro_grupo]
+        df_resultados_total = df_resultados_total[df_resultados_total['Grupo'] == filtro_grupo]
     if filtro_alumno != "Todos":
         df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Nombre del Alumno'] == filtro_alumno]
-
+        df_resultados_total = df_resultados_total[df_resultados_total['Nombre del Alumno'] == filtro_alumno]
     # Mostrar el DataFrame filtrado
     st.write(df_resultados_total_cf) #línea de control para ver los cambios que se van produciendo al aplicar los filtros.
 
-#     st.write(df_resultados_total)
-
-
-#---------------------------------------Prueba de filtros
-
-
-# @st.cache_data
-# def filtro_restaurante_estado(data, edo):
-#     if edo != "Todos":
-#         data = data[data['Estado'] == edo]
-#     return data
-
-
+    st.write(df_resultados_total)
 
 
     # ------------Inicio creación de DF de PDAS ------------
