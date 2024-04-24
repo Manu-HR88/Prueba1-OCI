@@ -6,6 +6,26 @@ import io
 # Esta parte del tablero tiene como objetivo principal mostrar los resultados del concurso para obtener los ganadores y mostrar las tables de puntuación, de acuerdo a los
 # parámetros definidos en la convocatoria. Con esto se podrá verificar cada resultado.
 
+# Agrega un texto semi-transparente como marca de agua
+st.markdown(
+    """
+    <style>
+        .watermark {
+            position: fixed;
+            top: 37%;
+            left: 40%;
+            transform: translate(-50%, -50%);
+            color: #E4E4E4;
+            font-size: 80px;
+            transform: rotate(-45deg);
+        }
+    </style>
+    <div class="watermark">Versión de Prueba</div>
+    """,
+    unsafe_allow_html=True
+)
+
+
 st.image('Logo_SATC_fondo.png', use_column_width=True)
 
 
@@ -28,11 +48,19 @@ if archivo_excel is not None:
     # Leer la hoja de reactivos
     df_alumnos = pd.read_excel(archivo_excel, sheet_name="Datos", header=2)
     # Leer la hoja de respuestas
-    df_respuestas = pd.read_excel(archivo_excel, sheet_name="Reactivos", header=1, usecols="A:B")
-    #st.write("control para ver cómo cargo la hoja de alumnos")
-    #st.write(df_alumnos)
-    #st.write("control para ver cómo cargo la hoja de respuestas correctas")
-    #st.write(df_respuestas)
+    df_respuestas = pd.read_excel(archivo_excel, sheet_name="Reactivos", header=1, usecols="A:E")
+    df_alumnos["Nombre del Alumno"] =  df_alumnos["Apellido Paterno del Alumno"] + " " + df_alumnos["Apellido Materno del Alumno"] + " " +  df_alumnos["Nombre (s) del Alumno"]
+    df_alumnos.drop(columns=["Nombre (s) del Alumno", "Apellido Paterno del Alumno", "Apellido Materno del Alumno"], inplace=True)
+    column_order = ["Folio", "Nombre del Alumno", "CCT"]
+   # Reordenar las columnas manteniendo todas las columnas restantes
+    column_order = ["Folio", "Nombre del Alumno", "CCT"] + [col for col in df_alumnos.columns if col not in ["Folio", "Nombre del Alumno", "CCT"]]
+    df_alumnos = df_alumnos[column_order]
+
+    st.write("control para ver cómo cargo la hoja de alumnos")
+    st.write(df_alumnos)
+    st.write("control para ver cómo cargo la hoja de respuestas correctas")
+    st.write(df_respuestas)
+    
 
     # ----------------------------------------------------------------- Fin carga de archivos -----------------------------------------------------------------------------------
 
@@ -209,4 +237,3 @@ if archivo_excel is not None:
             href = f'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_base64}'
             # Mostrar el botón de descarga
             st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar el DataFrame como Excel</a>', unsafe_allow_html=True)
-
