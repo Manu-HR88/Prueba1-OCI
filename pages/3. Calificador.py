@@ -56,10 +56,10 @@ if archivo_excel is not None:
     column_order = ["Folio", "Nombre del Alumno", "CCT"] + [col for col in df_alumnos.columns if col not in ["Folio", "Nombre del Alumno", "CCT"]]
     df_alumnos = df_alumnos[column_order]
 
-    st.write("control para ver cómo cargo la hoja de alumnos")
-    st.write(df_alumnos)
-    st.write("control para ver cómo cargo la hoja de respuestas correctas")
-    st.write(df_respuestas)
+    #st.write("control para ver cómo cargo la hoja de alumnos")
+    #st.write(df_alumnos)
+    #st.write("control para ver cómo cargo la hoja de respuestas correctas")
+    #st.write(df_respuestas)
     
 
     # ----------------------------------------------------------------- Fin carga de archivos -----------------------------------------------------------------------------------
