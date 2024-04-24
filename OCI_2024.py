@@ -8,7 +8,7 @@ st.markdown(
     <style>
         .watermark {
             position: fixed;
-            top: 37%;
+            top: 50%;
             left: 40%;
             transform: translate(-50%, -50%);
             color: #C9C9C9;
