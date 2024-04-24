@@ -10,6 +10,26 @@ import numpy as np
 # Aquí se analizarán no solo los ganadores sino que la Zona Escolar podrá ingresar los archivos de los resultados de sus escuelas 
 # y con ello analizar y proponer un plan de intervención para estos alumnos de sexto.
 
+# Agrega un texto semi-transparente como marca de agua
+st.markdown(
+    """
+    <style>
+        .watermark {
+            position: fixed;
+            top: 37%;
+            left: 40%;
+            transform: translate(-50%, -50%);
+            color: #E4E4E4;
+            font-size: 80px;
+            transform: rotate(-45deg);
+        }
+    </style>
+    <div class="watermark">Versión de Prueba</div>
+    """,
+    unsafe_allow_html=True
+)
+
+
 st.image('Logo_SATC_fondo.png', use_column_width=True)
 
 #-------------------------------------- Inicio segmento para cargar los archivos ------------------------------------------------
@@ -58,7 +78,13 @@ for i in range(numero_archivos):
     archivo_excel = st.file_uploader(f"Subir archivo {i+1}", type=["xlsm", "xlsx"])
     if archivo_excel is not None:
         df_alumnos = pd.read_excel(archivo_excel, sheet_name="Datos", header=2)
-        df_respuestas = pd.read_excel(archivo_excel, sheet_name="Reactivos", header=1, usecols="A:B")
+        df_respuestas = pd.read_excel(archivo_excel, sheet_name="Reactivos", header=1, usecols="A:E")
+        df_alumnos["Nombre del Alumno"] =  df_alumnos["Apellido Paterno del Alumno"] + " " + df_alumnos["Apellido Materno del Alumno"] + " " +  df_alumnos["Nombre (s) del Alumno"]
+        df_alumnos.drop(columns=["Nombre (s) del Alumno", "Apellido Paterno del Alumno", "Apellido Materno del Alumno"], inplace=True)
+        column_order = ["Folio", "Nombre del Alumno", "CCT"]
+        # Reordenar las columnas manteniendo todas las columnas restantes
+        column_order = ["Folio", "Nombre del Alumno", "CCT"] + [col for col in df_alumnos.columns if col not in ["Folio", "Nombre del Alumno", "CCT"]]
+        df_alumnos = df_alumnos[column_order]
         df_calificaciones = df_alumnos.copy()  # Creamos una copia del DataFrame de alumnos para conservarlo intacto
         for pregunta in df_respuestas['Reactivo']:
             df_temp = pd.merge(df_alumnos[['Nombre del Alumno', pregunta]], df_respuestas[df_respuestas['Reactivo'] == pregunta], left_on=pregunta, right_on='Correcta', how='left')
@@ -106,7 +132,7 @@ if not df_resultados_total.empty:
     filtro_sostenimiento = st.sidebar.selectbox("Filtrar por Sostenimiento", ["Todos"] + list(sostenimientos_unicos))
     filtro_turno = st.sidebar.selectbox("Filtrar por Turno", ["Todos"] + list(turnos_unicos))
     filtro_escuela = st.sidebar.selectbox("Filtrar por Nombre de la Escuela", ["Todos"] + list(escuelas_unicas))
-    filtro_docente = st.sidebar.selectbox("Filtrar por Nombre del Docente", ["Todos"] + list(docentes_unicos))
+    #filtro_docente = st.sidebar.selectbox("Filtrar por Nombre del Docente", ["Todos"] + list(docentes_unicos))
     filtro_grupo = st.sidebar.selectbox("Filtrar por Grupo", ["Todos"] + list(grupos_unicos))
     filtro_alumno = st.sidebar.selectbox("Filtrar por Nombre del Alumno", ["Todos"] + list(alumnos_unicos))
 
@@ -120,9 +146,9 @@ if not df_resultados_total.empty:
     if filtro_escuela != "Todos":
         df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Nombre de la Escuela'] == filtro_escuela]
         df_resultados_total = df_resultados_total[df_resultados_total['Nombre de la Escuela'] == filtro_escuela]
-    if filtro_docente != "Todos":
-        df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Nombre del Docente'] == filtro_docente]
-        df_resultados_total = df_resultados_total[df_resultados_total['Nombre del Docente'] == filtro_docente]
+    # if filtro_docente != "Todos":
+    #     df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Nombre del Docente'] == filtro_docente]
+    #     df_resultados_total = df_resultados_total[df_resultados_total['Nombre del Docente'] == filtro_docente]
     if filtro_grupo != "Todos":
         df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Grupo'] == filtro_grupo]
         df_resultados_total = df_resultados_total[df_resultados_total['Grupo'] == filtro_grupo]
@@ -146,9 +172,9 @@ if not df_resultados_total.empty:
     df_pdas = pd.DataFrame(columns=columnas_pda)
 
     # Llenar el DataFrame con los valores predeterminados
-    df_pdas['Reactivo'] = reactivos
-    df_pdas['Contenido'] = ['Contenido' + str(i) for i in reactivos]
-    df_pdas['PDA'] = ['PDA' + str(i) for i in reactivos]
+    df_pdas['Reactivo'] = df_respuestas["Reactivo"]
+    df_pdas['Contenido'] = df_respuestas["Contenido"]
+    df_pdas['PDA'] = df_respuestas["PDA"]
 
     # Asignar los valores de "Campo Formativo" de acuerdo con las categorías especificadas
     for i in reactivos:
@@ -156,7 +182,7 @@ if not df_resultados_total.empty:
             df_pdas.at[i - 1, 'Campo Formativo'] = 'Lenguajes'
         elif i <= 40:
             df_pdas.at[i - 1, 'Campo Formativo'] = 'Saberes y Pensamiento Científico'
-        elif i <= 55:
+        elif i <= 53:
             df_pdas.at[i - 1, 'Campo Formativo'] = 'Ética, Naturaleza y Sociedades'
         else:
             df_pdas.at[i - 1, 'Campo Formativo'] = 'De lo Humano y lo Comunitario'
@@ -199,8 +225,25 @@ if not df_resultados_total.empty:
         else:
             return 'background-color: green'
 
-    # Mostrar el DataFrame con estilos condicionales
-    st.write(df_analisis_completo.style.applymap(highlight_error, subset=['Porcentaje de Error']))
     
     #st.write(df_analisis)
     #st.write(df_resultados_total[["P10","P27","P29"]])
+
+
+    tab1,tab2,tab3,tab4 = st.tabs(["Lenguajes", "Saberes y Pensamiento Científico","Ética, Naturaleza y Sociedades", "Delo Humano y lo Comunitario"])
+    with tab1:
+        st.header("Lenguajes")
+        df_analisis_lenguajes = df_analisis_completo.loc[df_analisis_completo['Campo Formativo'] == "Lenguajes"]
+        st.write(df_analisis_lenguajes.style.applymap(highlight_error, subset=['Porcentaje de Error']))
+    with tab2:
+        st.header("Saberes y Pensamiento Científico")
+        df_analisis_sypc = df_analisis_completo.loc[df_analisis_completo['Campo Formativo'] == "Saberes y Pensamiento Científico"]
+        st.write(df_analisis_sypc.style.applymap(highlight_error, subset=['Porcentaje de Error']))
+    with tab3:
+        st.header("Etica, Naturaleza y Sociedades")
+        df_analisis_ens = df_analisis_completo.loc[df_analisis_completo['Campo Formativo'] == "Ética, Naturaleza y Sociedades"]
+        st.write(df_analisis_ens.style.applymap(highlight_error, subset=['Porcentaje de Error']))
+    with tab4:
+        st.header("De lo Humano y lo Comunitario")
+        df_analisis_hyc = df_analisis_completo.loc[df_analisis_completo['Campo Formativo'] == "De lo Humano y lo Comunitario"]
+        st.write(df_analisis_hyc.style.applymap(highlight_error, subset=['Porcentaje de Error']))
