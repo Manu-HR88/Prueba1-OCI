@@ -218,7 +218,7 @@ if archivo_excel is not None:
                 for i in range(len(info_alumno_empate_privado)):
                     st.write(cols_especificas[i], ":", info_alumno_empate_privado.iloc[i])
         else:
-            texto_privado = f"<div style='text-align: center; font-size: 20px;'>Participante con mayor número de aciertos de escuelas particulares: <br><span style='font-size: 30px; font-weight: bold;'>{alumnos_max_aciertos_publico[0]}</span> <br> con {max_aciertos_publico} aciertos.</div>"
+            texto_privado = f"<div style='text-align: center; font-size: 20px;'>Participante con mayor número de aciertos de escuelas particulares: <br><span style='font-size: 30px; font-weight: bold;'>{alumnos_max_aciertos_privado[0]}</span> <br> con {max_aciertos_privado} aciertos.</div>"
             st.write(texto_privado, unsafe_allow_html=True)
             for i in range(len(info_alumno_privado)):
                 st.write(cols_especificas[i], ":", info_alumno_privado.iloc[i])
