@@ -156,7 +156,7 @@ if not df_resultados_total.empty:
         df_resultados_total_cf = df_resultados_total_cf[df_resultados_total_cf['Nombre del Alumno'] == filtro_alumno]
         df_resultados_total = df_resultados_total[df_resultados_total['Nombre del Alumno'] == filtro_alumno]
     # Mostrar el DataFrame filtrado
-    st.write(df_resultados_total_cf) #línea de control para ver los cambios que se van produciendo al aplicar los filtros.
+    #st.write(df_resultados_total_cf) #línea de control para ver los cambios que se van produciendo al aplicar los filtros.
 
     st.write(df_resultados_total)
 
