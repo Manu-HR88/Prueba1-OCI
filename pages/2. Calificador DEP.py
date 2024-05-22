@@ -245,7 +245,7 @@ if archivo_excel is not None:
         'CUAUHTÉMOC': {'PÚBLICO': 7, 'PARTICULAR': 4},
         'GUSTAVO A. MADERO': {'PÚBLICO': 21, 'PARTICULAR': 9},
         'IZTACALCO': {'PÚBLICO': 6, 'PARTICULAR': 2},
-        'Región Centro': {'PÚBLICO': 23, 'PARTICULAR': 7},
+        'Región Centro': {'PÚBLICO': 17, 'PARTICULAR': 6},
         'Región Juárez': {'PÚBLICO': 17, 'PARTICULAR': 3},
         'MAGDALENA CONTRERAS': {'PÚBLICO': 4, 'PARTICULAR': 1},
         'MIGUEL HIDALGO': {'PÚBLICO': 4, 'PARTICULAR': 4},
