@@ -475,4 +475,4 @@ if archivo_excel is not None:
         # Generar un enlace de descarga para el archivo Excel
         href = f'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_base64_resultados}'
         # Mostrar el botón de descarga
-        st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar lo resultados en Excel</a>', unsafe_allow_html=True)
+        st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar los resultados en Excel</a>', unsafe_allow_html=True)
