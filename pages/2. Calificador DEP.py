@@ -8,23 +8,23 @@ import io
 # parámetros definidos en la convocatoria. Con esto se podrá verificar cada resultado.
 
 # Agrega un texto semi-transparente como marca de agua
-st.markdown(
-    """
-    <style>
-        .watermark {
-            position: fixed;
-            top: 37%;
-            left: 40%;
-            transform: translate(-50%, -50%);
-            color: #E4E4E4;
-            font-size: 80px;
-            transform: rotate(-45deg);
-        }
-    </style>
-    <div class="watermark">Versión de Prueba</div>
-    """,
-    unsafe_allow_html=True
-)
+#st.markdown(
+#    """
+#    <style>
+#        .watermark {
+#            position: fixed;
+#            top: 37%;
+#            left: 40%;
+#            transform: translate(-50%, -50%);
+#            color: #E4E4E4;
+#            font-size: 80px;
+#            transform: rotate(-45deg);
+#        }
+#    </style>
+#    <div class="watermark">Versión de Prueba</div>
+#    """,
+#    unsafe_allow_html=True
+#)
 
 # Agregar logotipo de la AEFCM
 st.image('Logo_SATC_fondo.png', use_column_width=True)
@@ -285,7 +285,7 @@ if archivo_excel is not None:
                 # Generar un enlace de descarga para el archivo Excel
                 href = f'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_base64_gan_pub}'
                 # Mostrar el botón de descarga
-                st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar lo resultados en Excel</a>', unsafe_allow_html=True)
+                st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar los resultados en Excel</a>', unsafe_allow_html=True)
 
         with tab2:
             # Obtener el número de ganadores para el sostenimiento seleccionado
@@ -308,7 +308,7 @@ if archivo_excel is not None:
                 # Generar un enlace de descarga para el archivo Excel
                 href = f'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_base64_gan_part}'
                 # Mostrar el botón de descarga
-                st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar lo resultados en Excel</a>', unsafe_allow_html=True)        
+                st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar los resultados en Excel</a>', unsafe_allow_html=True)        
         
     #---------------------------------------Fin segmento para mostrar los resultados por Alcaldía--------------------------------------
 
@@ -339,7 +339,7 @@ if archivo_excel is not None:
         # Generar un enlace de descarga para el archivo Excel
         href = f'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_base64_calif}'
         # Mostrar el botón de descarga
-        st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar lo resultados en Excel</a>', unsafe_allow_html=True)
+        st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar los resultados en Excel</a>', unsafe_allow_html=True)
 
     #-- Descargar el DF con los resultados por campo formativo y por filtros
     st.markdown("<p style='text-align: justify;'><em>3.Registro de resultados por cada campo formativo y total de aciertos.</em></p>", unsafe_allow_html=True)
@@ -350,7 +350,7 @@ if archivo_excel is not None:
         # Generar un enlace de descarga para el archivo Excel
         href = f'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_base64_resultados}'
         # Mostrar el botón de descarga
-        st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar lo resultados en Excel</a>', unsafe_allow_html=True)
+        st.markdown(f'<a href="{href}" download="dataframe.xlsx">Haz clic aquí para descargar los resultados en Excel</a>', unsafe_allow_html=True)
 
     # ------------------------------------------------- Fin Segmento para descargar archivos ----------------------------------------------------------
 
@@ -471,7 +471,7 @@ if archivo_excel is not None:
 
     if st.button('Descargar archivo con grado de error'):
         # Convertir el DataFrame a un archivo Excel en formato base64
-        excel_base64_resultados = convertir_a_excel(df_resultados_ordenado)
+        excel_base64_resultados = convertir_a_excel(df_porcentaje_error)
         # Generar un enlace de descarga para el archivo Excel
         href = f'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_base64_resultados}'
         # Mostrar el botón de descarga
